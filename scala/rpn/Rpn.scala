@@ -1,8 +1,6 @@
-import scala.annotation.tailrec
+package rpn
 
-abstract class Elt
-case class Num(n: Int) extends Elt
-case class Opr(opr: (Int, Int) => Int) extends Elt
+import scala.annotation.tailrec
 
 object Rpn {
   def main(args: Array[String]) {
