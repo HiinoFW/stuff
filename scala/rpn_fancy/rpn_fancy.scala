@@ -1,3 +1,5 @@
+package rpn_fancy
+
 import annotation.tailrec
 
 object Rpn {  
