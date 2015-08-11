@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 
 object Rpn {
   def main(args: Array[String]) {
-    println(rpn("35 1 2 + 4 x+13 −random comment2*5%"))
+    println(rpn("35 1 2 + 4 x+13 −random comment2*5%")) // prints 3
   }
 
   def rpn(s: String) = {
