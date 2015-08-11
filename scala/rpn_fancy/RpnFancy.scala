@@ -2,7 +2,7 @@ package rpn_fancy
 
 import annotation.tailrec
 
-object Rpn {  
+object RpnFancy {  
   def main(args: Array[String]) {
     val tree = rpn("12 8comment- morecomments7 2*+") // gives the tree structure of the operation
     val res = tree.get // gives the result of the operation
