@@ -25,9 +25,9 @@ arguments are converted into input for the brainfuck program.
 There are two modes: dynamic and static input.
 Static is when you add your input in the arguments of the program after the brainfuck file name, dynamic is when you don't (you only input the brainfuck file name).
 
-In static mode, the interpreter reads the input character by character, then reads only null characters when it runs out.
+In static mode, the interpreter reads the input character by character, then after it runs out, reads <code>null</code> characters.
 
-In dynamic mode, the interpreter asks for line-by-line input from the user. Once a line is cleared, it will read a single null character, then ask for another line from the user if needed.
+In dynamic mode, the interpreter asks for line-by-line input from the user. Once a line is cleared, it will read a single <code>null</code> character, then ask for another line from the user if needed.
 
 #### Output
 
@@ -39,9 +39,9 @@ Newlines are printed everytime the interpreter asks for an input line from the u
 
 - Does not check (as of yet) if the brainfuck program is well-formed, unexpected results may appear
 if you mess up loops.
-- As stated earlier, the output is only printed and is not returned as a string (as of yet).
+- As stated earlier, the output is only printed and is not returned as a <code>String</code> (as of yet).
 
 ## Dependencies
 
 This interpreter uses my [scala_utils](https://github.com/HiinoFW/scala_utils/tree/master) library
-(namely Ring and IO). Do not forget to include it as well.
+(namely <code>Ring</code> and <code>IO</code>). Do not forget to include it as well.
