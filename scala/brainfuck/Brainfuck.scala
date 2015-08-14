@@ -19,12 +19,18 @@ object Brainfuck {
     }
     
     val code = IO.readFileToString(name)
-    println(bf(code, in))
+    bf(code, in)
   }
   
   def bf(code: String, in: String) = {
+    val input =
+      if (in == "")
+        in
+      else
+        in + '\0'
+    
     val (instr, _) = bfParse(code.toSeq)
-    bfExec(instr, in)
+    bfExec(instr, input)
   }
   
   def bfParse(code: Seq[Char]): (List[BFI], Seq[Char]) = {
@@ -54,40 +60,44 @@ object Brainfuck {
   
   def bfExec(instr: List[BFI], in: Seq[Char]) = {
     @tailrec
-    def bfExec_rec(instr: List[BFI], arr: Ring[Int], in: Seq[Char], out: List[Char]): String =
+    def bfExec_rec(instr: List[BFI], arr: Ring[Int], in: Seq[Char]): Unit =
       instr match {
-        case List() => out.mkString
+        case List() => println()
         case i :: is => {
-          val (nInstr, nArr, nIn, nOut) = i match {
-            case Right => (is, arr.shift, in, out)
-            case Left => (is, arr.unshift, in, out)          
-            case Plus => (is, arr.change(_+1), in, out)
-            case Minus => (is, arr.change(_-1), in, out)
-            case Out => (is, arr, in, out :+ (arr.get).toChar)
+          val (nInstr, nArr, nIn) = i match {
+            case Right => (is, arr.shift, in)
+            case Left => (is, arr.unshift, in)          
+            case Plus => (is, arr.change(_+1), in)
+            case Minus => (is, arr.change(_-1), in)
+            case Out => {
+              print(arr.get.toChar)
+              (is, arr, in)
+            }
             case In => {
-              val s :: ss = readInput(in)
-              (is, arr.replace(s), ss, out)
+              readInput(in) match {
+                case Seq() => (is, arr.replace(0), Seq())
+                case s +: ss => (is, arr.replace(s), ss)
+              }
+              
             }
             case Loop(ls) => {
               if (arr.get == 0)
-                (is, arr, in, out)
+                (is, arr, in)
               else
-                (ls ::: instr, arr, in, out)
+                (ls ::: instr, arr, in)
             }
           }
-          bfExec_rec(nInstr, nArr, nIn, nOut)
+          bfExec_rec(nInstr, nArr, nIn)
         }
       }
     
     def readInput(in: Seq[Char]): Seq[Char] = 
       if (in == Seq()) {
-        val newin = io.StdIn.readLine().toSeq
-        if (newin == Seq())
-          sys.exit(0)
-        newin
+        println()
+        io.StdIn.readLine().toSeq :+ '\0'
       }
       else in
       
-    bfExec_rec(instr, Ring(List.fill(30000)(0)), in, List())
+    bfExec_rec(instr, Ring(List.fill(30000)(0)), in)
   }
 }
