@@ -2,8 +2,8 @@ Counts every character in the input and returns how many times each character ha
 
 
 
-array format:   ~~~X___
-starting position:  ^
+array format:   0~~~X___0
+starting position:   ^
 
 
 ++++[>++++<-]>[<++++[<++++>-]>-]<<-   obtain the value 255 in a cell (X)
@@ -29,11 +29,11 @@ starting position:  ^
 
 
 
-array format: 0arro0FCn0___X
-current position:      ^
+array format: 0arro0FCn00___X0
+current position:       ^
 
 
-<++++[>++++<-]>[<++++[<++++>-]>-]    initialize char counter cell (C) to 256
+<<++++[>++++<-]>[<++++[<++++>-]>-]    initialize char counter cell (C) to 256
 
 <++++++++++   prepare newline character (n)
 
@@ -41,24 +41,34 @@ current position:      ^
 
 <+++++[<+++>-]<[<++<+++<++++<++>>>>-]<++<<++<++[>]>>   prepare arrow string (arro)
 
-[   output diplaying loop
+[   output displaying loop
 
-  <   go to foreach char cell (F)
+  <+   next foreach char iteration (F)
+  
+  >>>>>    go to beginning of char count array (___)
+  
+  [>]<-    get to count cell of current char (X) and remove the extra value we added at the beginning
+  
+  [   if current char has at least one occurrence
+  
+    [<]<<<<.   go back and display current character
 
-  +.    display current character (F)
+    <<[.<]>[>]    display arrow string (arro)
 
-  <<[.<]>[>]    display arrow string (arro)
+    >>>>>>   go to beginning of char count array (___)
 
-  >>>>>   go to beginning of char count array (___)
+    [>]<   get to count cell of current char (X)
 
-  [>]<   get to count cell of current char (X)
+    ++++++++ ++++++++++ ++++++++++ ++++++++++ ++++++++++.    display count for current char (X)
 
-  +++++++ ++++++++++ ++++++++++ ++++++++++ ++++++++++.    display count for current char (X)
+    [-]   reset cell (X)
 
-  [-]   reset cell (X)
+    <[<]<<.>>   display newline character (n)
+    
+  ]
+  
+  <[<]<[>]    reset position
 
-  <[<]<.   display newline character (n)
-
-  <-   decrement char counter cell (C)
+  <<-   decrement char counter cell (C)
 
 ]   end of char counter
