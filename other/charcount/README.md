@@ -4,9 +4,9 @@ Returns the amount of each character used in an input string.
 
 ## Input
 
-A sequence of characters
+A sequence of characters that ends in '\0' (null character)
 
 ## Output
 
-For each existing ASCII character, prints:
+For each ASCII character that appears at least once in the sequence, prints:
 <code>[char] -> [amount]</code>
