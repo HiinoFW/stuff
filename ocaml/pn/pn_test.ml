@@ -1,4 +1,3 @@
-open Pn
 let () =
   if (Array.length Sys.argv) < 2
   then print_endline "Add an argument!"
