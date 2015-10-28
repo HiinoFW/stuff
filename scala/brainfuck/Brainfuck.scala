@@ -1,8 +1,8 @@
 package brainfuck
 
 import annotation.tailrec
-import util.tools.IO
-import util.Ring
+import util.tool.IO
+import util.collection.Ring
 
 object Brainfuck {
   def main(args: Array[String]) {
@@ -45,7 +45,7 @@ object Brainfuck {
       case c +: cs => {
         val newAcc = c match {
           case '>' => acc :+ Right
-          case '<' => acc :+ Left   
+          case '<' => acc :+ Left
           case '+' => acc :+ Plus
           case '-' => acc :+ Minus
           case '.' => acc :+ Out
@@ -66,7 +66,7 @@ object Brainfuck {
         case i :: is => {
           val (nInstr, nArr, nIn) = i match {
             case Right => (is, arr.shift, in)
-            case Left => (is, arr.unshift, in)          
+            case Left => (is, arr.unshift, in)
             case Plus => (is, arr.change(_+1), in)
             case Minus => (is, arr.change(_-1), in)
             case Out => {
@@ -98,6 +98,6 @@ object Brainfuck {
       }
       else in
       
-    bfExec_rec(instr, Ring(List.fill(30000)(0)), in)
+    bfExec_rec(instr, Ring(List.fill(15000)(0), List.fill(15000)(0)), in)
   }
 }
